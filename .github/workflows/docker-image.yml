@@ -1,0 +1,39 @@
+name: Release API server
+
+on:
+  push:
+  pull_request:
+
+env:
+  REGISTRY: docker.io
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Build the Docker image
+      run: |
+        make docker-api-server
+
+    - name: Tag image
+      if: github.event_name != 'pull_request'
+      run: |
+        make docker-tag REPO_TAG=${GITHUB_REF#refs/heads/}
+
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        logout: true
+
+    - name: Push Image to ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      run:
+        make docker-push REPO_TAG=${GITHUB_REF#refs/heads/}
