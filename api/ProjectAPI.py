@@ -15,6 +15,6 @@ class ProjectAPI1(Resource):
     def get(self):
         logger.debug("Inside the post method of Task")
         projectDetails = {
-            "message" : "hola"
+            "message" : "Hi"
         }
         return projectDetails,200
