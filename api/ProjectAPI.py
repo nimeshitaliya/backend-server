@@ -18,3 +18,12 @@ class ProjectAPI1(Resource):
             "message" : "hola"
         }
         return projectDetails,200
+
+class ProjectAPI2(Resource):
+
+    def get(self):
+        logger.debug("Inside the post method of Task")
+        projectDetails = {
+            "message" : "Hello"
+        }
+        return projectDetails,200
