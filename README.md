@@ -4,6 +4,7 @@ Here we are using the `flask` server as a backend server which following include
 
 1. `GET /` -> { "healthcheck": "ok" }
 2. `GET /page/message` -> { "message": "hola" }
+3. `GET /tab/message` -> { "message": "Hello" }
 
 ## CI/CD
 
@@ -14,11 +15,11 @@ Here we are using the `flask` server as a backend server which following include
 1. Clone the latest repo
 2. docker build
 3. docker tag
-4. docker push (on `nitaliya/api-server:master` public docker registry)
+4. docker push (on `nitaliya/api-server:feat2` public docker registry)
 
 ## Note: 
 ### Enhancement
 - Use private docker registry - this need docker login on ec2 instance and GitHub runner
-- Push two image on registry `latest`, and `master-v*`
+- Push two image on registry `latest`, and `feat2-v*`
 - The `self-hosted` runner run GitHub actions
 - Write GitHub actions to `lint` and `test` change on push or pull-request
